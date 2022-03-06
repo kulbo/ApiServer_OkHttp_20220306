@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import kr.co.smartsoft.apiserver_okhttp_20220306.databinding.ActivityMainBinding
+import kr.co.smartsoft.apiserver_okhttp_20220306.utils.ServerUtil
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,7 +20,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setupEvents() {
+        val id = binding.edtId.toString()
+        val password = binding.edtPassword.toString()
 
+        binding.btnLogIn.setOnClickListener {
+            ServerUtil.postRequestLogin(id, password)
+        }
     }
 
     fun setValues() {
