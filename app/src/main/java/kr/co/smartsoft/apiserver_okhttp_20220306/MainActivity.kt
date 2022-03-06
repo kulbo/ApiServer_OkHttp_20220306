@@ -36,7 +36,9 @@ class MainActivity : BaseActivity() {
                 override fun onResponse(JsonObject: JSONObject) {
                     val code = JsonObject.getInt("code")
                     if (code == 200) {
-                        Toast.makeText(mContext, "로그인 성공", Toast.LENGTH_SHORT).show()
+                        runOnUiThread {
+                            Toast.makeText(mContext, "로그인 성공", Toast.LENGTH_SHORT).show()
+                        }
                     } else {
                         val message = JsonObject.getString("message")
                         runOnUiThread {

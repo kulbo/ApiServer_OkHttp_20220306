@@ -3,6 +3,7 @@ package kr.co.smartsoft.apiserver_okhttp_20220306
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import kr.co.smartsoft.apiserver_okhttp_20220306.databinding.ActivitySignUpBinding
 import kr.co.smartsoft.apiserver_okhttp_20220306.utils.ServerUtil
@@ -27,9 +28,18 @@ class SignUpActivity : BaseActivity() {
                 override fun onResponse(JsonObject: JSONObject) {
                     val code = JsonObject.getInt("code")
                     if (code == 200) {
+                        val dataObject = JsonObject.getJSONObject("data")
+                        val userObject = dataObject.getJSONObject("user")
+                        val nickname = userObject.getString("nick_name")
+                        runOnUiThread {
+                            Toast.makeText(mContext, "${nickname}님 가입축하드립니다.", Toast.LENGTH_SHORT).show()
+                        }
                         Log.d("서버응답", "가입성공")
                     } else {
-                        Log.d("서버응답", "가입실패")
+                        val message = JsonObject.getString("message")
+                        runOnUiThread {
+                            Toast.makeText(mContext, "에러 : ${message}", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
 
