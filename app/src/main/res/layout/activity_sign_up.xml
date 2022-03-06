@@ -15,7 +15,7 @@
             android:layout_marginTop="20dp"
             android:text="아이디"/>
         <EditText
-            android:id="@+id/emailId"
+            android:id="@+id/edtEmailId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="이메일 입력"
@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:text="비밀번호"/>
         <EditText
+            android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="비밀번호 입렵"
