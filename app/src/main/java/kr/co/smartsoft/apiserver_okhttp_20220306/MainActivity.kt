@@ -1,5 +1,6 @@
 package kr.co.smartsoft.apiserver_okhttp_20220306
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -22,10 +23,15 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
-        val id = binding.edtId.toString()
-        val password = binding.edtPassword.toString()
+        binding.btnSignUp.setOnClickListener {
+            val myIntent = Intent(mContext, SignUpActivity::class.java)
+            startActivity(myIntent)
+        }
 
         binding.btnLogIn.setOnClickListener {
+            val id = binding.edtId.toString()
+            val password = binding.edtPassword.toString()
+
             ServerUtil.postRequestLogin(id, password, object : ServerUtil.JsonResponseHandler{
                 override fun onResponse(JsonObject: JSONObject) {
                     val code = JsonObject.getInt("code")
@@ -42,6 +48,7 @@ class MainActivity : BaseActivity() {
 
             })
         }
+
     }
 
     override fun setValues() {
