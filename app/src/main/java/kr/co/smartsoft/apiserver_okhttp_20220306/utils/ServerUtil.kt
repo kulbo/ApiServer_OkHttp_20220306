@@ -4,15 +4,19 @@ import android.util.Log
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
+import java.lang.reflect.InvocationHandler
 
 class ServerUtil {
 
+    interface JsonResponseHandler {
+        fun onResponse(JsonObject: JSONObject)
+    }
     companion object {
         val BASE_URL = "http://54.180.52.26"
         val EMAIL = "email"
         val PASSWORD = "password"
 
-        fun postRequestLogin(id:String, pw:String) {
+        fun postRequestLogin(id:String, pw:String, handler: JsonResponseHandler ) {
 
             val urlString = "${BASE_URL}/user"
 
@@ -40,9 +44,10 @@ class ServerUtil {
                 override fun onResponse(call: Call, response: Response) {
                     val bodyString = response.body!!.string()
 //                  응답의 본문을 string으로 변환하면 json 적용된 상태
-    
+
                     val jsonObj = JSONObject(bodyString)
                     Log.d("서버응답 : ", jsonObj.toString())
+                    handler?.onResponse(jsonObj)
 
                 }
 
